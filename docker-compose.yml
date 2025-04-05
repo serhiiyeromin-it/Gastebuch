@@ -1,0 +1,57 @@
+services:
+  frontend:
+    build: ./frontend  # Assumes you have a Dockerfile in ./frontend
+    ports:
+      - "8080:80"  # Adjust for your frontend framework (Vite, React, etc.)
+    depends_on:
+      - backend
+    networks:
+      - frontend_net
+  
+  backend:
+    build: ./backend  # Assumes you have a Dockerfile in ./backend
+    ports:
+      - "3050:3050"
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=postgres_db
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=5432
+    depends_on:
+      postgres_db:
+        condition: service_healthy  # ✅ Ensures the backend waits for PostgreSQL
+    networks:
+      - frontend_net
+      - backend_net
+
+  postgres_db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    # ports:
+    #   - "5432:5432"
+    
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:  # ✅ Ensures PostgreSQL is ready before backend starts
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      retries: 5
+    networks:
+      - backend_net
+
+volumes:
+  pgdata:
+
+networks:
+  frontend_net:  # Hier wird ein eigenes Netzwerk definiert
+    driver: bridge
+  backend_net:  # Hier wird ein eigenes Netzwerk definiert
+    driver: bridge
+

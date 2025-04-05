@@ -1,0 +1,112 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(104, 106, 118);
+}
+.box {
+    width: 700px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+}
+.box1 {
+    width: 600px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box2 {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.box3 {
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    width: 430px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: rgb(211, 215, 218);
+    border: none;
+    outline: none;
+}
+textarea {
+    width: 600px;
+    height: 150px;
+    border-radius: 10px;
+    background-color: rgb(211, 215, 218);
+}
+
+#hin {
+    color: black;
+
+}
+button {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+ul {
+    width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    
+}
+
+li {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    color: azure;
+}
+
+/* Animiert das Erscheinen */
+.fade-in {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeIn 1s forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Animiert das Verschwinden */
+  .fade-out {
+    opacity: 1;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateY(0);
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  
